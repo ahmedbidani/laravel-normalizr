@@ -17,12 +17,17 @@ use Eyf\Normalizr\Http\Resources\JsonResource;
 
 class User extends JsonResource
 {
-  return [
-    'id' => $this->id,
-    'name' => $this->name,
-    // ...
+  protected $schema = ['posts'];
 
-    'posts' => Post::collection($this->whenLoaded('posts')),
-  ];
+  public function toArray($request)
+  {  
+    return [
+      'id' => $this->id,
+      'name' => $this->name,
+      // ...
+
+      'posts' => Post::collection($this->whenLoaded('posts')),
+    ];
+  }
 }
 ```
