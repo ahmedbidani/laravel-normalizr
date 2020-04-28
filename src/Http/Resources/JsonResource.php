@@ -13,12 +13,12 @@ class JsonResource extends BaseResource
     return new AnonymousResourceCollection($resource, static::class);
   }
 
-  protected function getItemName()
+  protected function getResourceName()
   {
-    if (!isset($this->itemName)) {
-      $this->itemName = $this->classToKeyName(get_class($this));
+    if (!isset($this->resourceName)) {
+      $this->resourceName = $this->classToKeyName(get_class($this));
     }
 
-    return $this->itemName;
+    return $this->resourceName;
   }
 }

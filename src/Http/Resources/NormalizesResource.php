@@ -11,10 +11,10 @@ trait NormalizesResource
 {
   public $preserveKeys = true;
 
-  protected $itemName;
+  protected $resourceName;
   protected $schema = [];
 
-  abstract protected function getItemName();
+  abstract protected function getResourceName();
 
   public function getSchema()
   {
@@ -26,12 +26,12 @@ trait NormalizesResource
     $data = parent::resolve($request);
     $entities = [];
 
-    $itemName = $this->getItemName();
+    $resourceName = $this->getResourceName();
 
     if ($this instanceof ResourceCollection) {
-      $result = $this->walkItems($data, $itemName, $entities, $request);
+      $result = $this->walkItems($data, $resourceName, $entities, $request);
     } else {
-      $result = $this->walkItem($data, $itemName, $entities, $request);
+      $result = $this->walkItem($data, $resourceName, $entities, $request);
     }
 
     return compact('entities', 'result');

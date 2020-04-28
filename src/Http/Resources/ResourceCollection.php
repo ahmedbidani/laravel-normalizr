@@ -22,12 +22,12 @@ class ResourceCollection extends BaseCollection
     }
   }
 
-  protected function getItemName()
+  protected function getResourceName()
   {
-    if (!isset($this->itemName)) {
-      $this->itemName = $this->classToKeyName($this->collects());
+    if (!isset($this->resourceName)) {
+      $this->resourceName = $this->classToKeyName($this->collects());
     }
 
-    return $this->itemName;
+    return $this->resourceName;
   }
 }
