@@ -28,7 +28,7 @@ trait NormalizesResource
 
     $itemName = $this->getItemName();
 
-    if ($this instanceof NormalizrCollection) {
+    if ($this instanceof ResourceCollection) {
       $result = $this->walkItems($data, $itemName, $entities, $request);
     } else {
       $result = $this->walkItem($data, $itemName, $entities, $request);

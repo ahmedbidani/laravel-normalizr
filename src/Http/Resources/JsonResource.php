@@ -10,7 +10,7 @@ class JsonResource extends BaseResource
 
   public static function collection($resource)
   {
-    return new AnonymousNormalizrCollection($resource, static::class);
+    return new AnonymousResourceCollection($resource, static::class);
   }
 
   protected function getItemName()

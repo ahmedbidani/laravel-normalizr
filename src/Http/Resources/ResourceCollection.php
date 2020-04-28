@@ -15,7 +15,7 @@ class ResourceCollection extends BaseCollection
     $itemClass = $this->collects();
     $item = new $itemClass([]);
 
-    if ($item instanceof NormalizrResource) {
+    if ($item instanceof JsonResource) {
       $this->schema = $item->getSchema();
     } else {
       $this->schema = [];
