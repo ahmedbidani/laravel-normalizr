@@ -2,7 +2,7 @@
 
 namespace Eyf\Normalizr\Http\Resources;
 
-class AnonymousNormalizrCollection extends NormalizrCollection
+class AnonymousResourceCollection extends ResourceCollection
 {
   /**
    * The name of the resource being collected.

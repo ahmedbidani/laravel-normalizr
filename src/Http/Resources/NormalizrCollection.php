@@ -2,9 +2,9 @@
 
 namespace Eyf\Normalizr\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection as BaseCollection;
 
-class NormalizrCollection extends ResourceCollection
+class ResourceCollection extends BaseCollection
 {
   use NormalizesResource;
 
