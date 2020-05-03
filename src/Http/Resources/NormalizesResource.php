@@ -11,27 +11,21 @@ trait NormalizesResource
 {
   public $preserveKeys = true;
 
-  protected $resourceName;
-  protected $schema = [];
+  protected $itemName;
 
-  abstract protected function getResourceName();
-
-  public function getSchema()
-  {
-    return $this->schema;
-  }
+  abstract protected function getItemName();
 
   public function resolve($request = null)
   {
     $data = parent::resolve($request);
     $entities = [];
 
-    $resourceName = $this->getResourceName();
+    $itemName = $this->getItemName();
 
     if ($this instanceof ResourceCollection) {
-      $result = $this->walkItems($data, $resourceName, $entities, $request);
+      $result = $this->walkItems($data, $itemName, $entities, $request);
     } else {
-      $result = $this->walkItem($data, $resourceName, $entities, $request);
+      $result = $this->walkItem($data, $itemName, $entities, $request);
     }
 
     return compact('entities', 'result');
@@ -45,9 +39,15 @@ trait NormalizesResource
   ) {
     foreach ($item as $key => $value) {
       $isResource = $value instanceof JsonResource;
-      $isMissingValue = $isResource && $value->resource instanceof MissingValue;
 
-      if (!$isResource || $isMissingValue || !in_array($key, $this->schema)) {
+      if (!$isResource) {
+        continue;
+      }
+
+      $isMissing = $value->resource instanceof MissingValue;
+
+      if ($isMissing) {
+        unset($item[$key]);
         continue;
       }
 
