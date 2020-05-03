@@ -14,8 +14,6 @@ use Eyf\Normalizr\Http\Resources\JsonResource;
 
 class User extends JsonResource
 {
-  protected $schema = ['posts'];
-
   public function toArray($request)
   {  
     return [
