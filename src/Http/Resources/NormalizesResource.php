@@ -67,12 +67,16 @@ trait NormalizesResource
         );
       } else {
         // Normalize resource relationship
-        $item[$key] = $this->walkItem(
-          is_array($value) ? $value : $value->toArray($request),
-          $relationName,
-          $entities,
-          $request
-        );
+        if ($value->resource) {
+          $item[$key] = $this->walkItem(
+            $value->toArray($request),
+            $relationName,
+            $entities,
+            $request
+          );
+        } else {
+          $item[$key] = null;
+        }
       }
     }
 
