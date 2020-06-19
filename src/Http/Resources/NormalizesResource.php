@@ -11,21 +11,21 @@ trait NormalizesResource
 {
   public $preserveKeys = true;
 
-  protected $itemName;
+  protected $entityKey;
 
-  abstract protected function getItemName();
+  abstract public function getEntityKey();
 
   public function resolve($request = null)
   {
     $data = parent::resolve($request);
     $entities = [];
 
-    $itemName = $this->getItemName();
+    $entityKey = $this->getEntityKey();
 
     if ($this instanceof ResourceCollection) {
-      $result = $this->walkItems($data, $itemName, $entities, $request);
+      $result = $this->walkItems($data, $entityKey, $entities, $request);
     } else {
-      $result = $this->walkItem($data, $itemName, $entities, $request);
+      $result = $this->walkItem($data, $entityKey, $entities, $request);
     }
 
     return compact('entities', 'result');
@@ -33,7 +33,7 @@ trait NormalizesResource
 
   protected function walkItem(
     array $item,
-    string $itemName,
+    string $entityKey,
     array &$entities,
     $request
   ) {
@@ -51,7 +51,7 @@ trait NormalizesResource
         continue;
       }
 
-      $relationName = $this->relationToKeyName($key);
+      $relationName = $value->getEntityKey();
 
       if (!isset($entities[$relationName])) {
         $entities[$relationName] = [];
@@ -76,18 +76,18 @@ trait NormalizesResource
       }
     }
 
-    if (!isset($entities[$itemName])) {
-      $entities[$itemName] = [];
+    if (!isset($entities[$entityKey])) {
+      $entities[$entityKey] = [];
     }
 
-    $entities[$itemName][$item['id']] = $item;
+    $entities[$entityKey][$item['id']] = $item;
 
     return $item['id'];
   }
 
   protected function walkItems(
     $items,
-    string $itemName,
+    string $entityKey,
     array &$entities,
     $request
   ) {
@@ -96,7 +96,7 @@ trait NormalizesResource
     foreach ($items as $item) {
       $id = $this->walkItem(
         is_array($item) ? $item : $item->toArray($request),
-        $itemName,
+        $entityKey,
         $entities,
         $request
       );

@@ -8,12 +8,12 @@ class ResourceCollection extends BaseCollection
 {
   use NormalizesResource;
 
-  protected function getItemName()
+  public function getEntityKey()
   {
-    if (!isset($this->itemName)) {
-      $this->itemName = $this->classToKeyName($this->collects());
+    if (!isset($this->entityKey)) {
+      $this->entityKey = $this->classToKeyName($this->collects());
     }
 
-    return $this->itemName;
+    return $this->entityKey;
   }
 }

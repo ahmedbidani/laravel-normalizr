@@ -13,12 +13,12 @@ class JsonResource extends BaseResource
     return new AnonymousResourceCollection($resource, static::class);
   }
 
-  protected function getItemName()
+  public function getEntityKey()
   {
-    if (!isset($this->itemName)) {
-      $this->itemName = $this->classToKeyName(get_class($this));
+    if (!isset($this->entityKey)) {
+      $this->entityKey = $this->classToKeyName(get_class($this));
     }
 
-    return $this->itemName;
+    return $this->entityKey;
   }
 }
