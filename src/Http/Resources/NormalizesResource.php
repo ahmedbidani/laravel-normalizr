@@ -11,7 +11,7 @@ trait NormalizesResource
 {
   public $preserveKeys = true;
 
-  public static $entityKey;
+  protected $entityKey;
 
   abstract public function getEntityKey();
 

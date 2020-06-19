@@ -10,10 +10,10 @@ class ResourceCollection extends BaseCollection
 
   public function getEntityKey()
   {
-    if (!isset(static::$entityKey)) {
-      static::$entityKey = $this->classToKeyName($this->collects());
+    if (!isset($this->entityKey)) {
+      $this->entityKey = $this->classToKeyName($this->collects());
     }
 
-    return static::$entityKey;
+    return $this->entityKey;
   }
 }

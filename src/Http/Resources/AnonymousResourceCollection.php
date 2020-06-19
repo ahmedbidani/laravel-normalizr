@@ -11,7 +11,7 @@ class AnonymousResourceCollection extends ResourceCollection
    */
   public $collects;
 
-  public static $entityKey;
+  protected $entityKey;
 
   /**
    * Create a new anonymous resource collection.
@@ -23,8 +23,9 @@ class AnonymousResourceCollection extends ResourceCollection
   public function __construct($resource, $collects)
   {
     $this->collects = $collects;
-    
-    static::$entityKey = $collects::$entityKey;
+
+    // Copy normalizr entity key
+    $this->entityKey = (new $collects(null))->getEntityKey();
 
     parent::__construct($resource);
   }

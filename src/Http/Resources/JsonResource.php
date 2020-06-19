@@ -15,10 +15,10 @@ class JsonResource extends BaseResource
 
   public function getEntityKey()
   {
-    if (!isset(static::$entityKey)) {
-      static::$entityKey = $this->classToKeyName(get_class($this));
+    if (!isset($this->entityKey)) {
+      $this->entityKey = $this->classToKeyName(get_class($this));
     }
 
-    return static::$entityKey;
+    return $this->entityKey;
   }
 }
